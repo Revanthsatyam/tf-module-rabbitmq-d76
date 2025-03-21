@@ -4,3 +4,6 @@ variable "vpc_id" {}
 variable "sg_port_1" {}
 variable "sg_port_2" {}
 variable "ssh_ingress" {}
+variable "ami_id" {}
+variable "instance_type" {}
+variable "ssh_ingress_cidr" {}

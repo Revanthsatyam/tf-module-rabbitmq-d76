@@ -24,7 +24,7 @@ resource "aws_security_group" "main" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = "172.31.25.133/32"
+    cidr_blocks = var.ssh_ingress_cidr
   }
 
   egress {
@@ -34,4 +34,11 @@ resource "aws_security_group" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+}
+
+resource "aws_instance" "main" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+
+  tags = merge(local.tags, { Name = "${local.name_prefix}" })
 }
