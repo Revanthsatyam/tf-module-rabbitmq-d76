@@ -44,3 +44,11 @@ resource "aws_instance" "main" {
   user_data              = file("${path.module}/userdata.sh")
   tags                   = merge(local.tags, { Name = "${local.name_prefix}" })
 }
+
+resource "aws_route53_record" "main" {
+  zone_id = var.hosted_zone_id
+  name    = "rabbitmq-${var.env}"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.main.private_ip]
+}

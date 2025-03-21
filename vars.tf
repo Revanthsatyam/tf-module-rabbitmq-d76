@@ -8,3 +8,4 @@ variable "ami_id" {}
 variable "instance_type" {}
 variable "ssh_ingress_cidr" {}
 variable "subnet_ids" {}
+variable "hosted_zone_id" {}
