@@ -37,8 +37,10 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_instance" "main" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-
-  tags = merge(local.tags, { Name = "${local.name_prefix}" })
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.main.id]
+  subnet_id              = var.subnet_ids[0]
+  user_data              = file("${path.module}/userdata.sh")
+  tags                   = merge(local.tags, { Name = "${local.name_prefix}" })
 }
