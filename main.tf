@@ -42,6 +42,12 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = [aws_security_group.main.id]
   subnet_id              = var.subnet_ids[0]
   user_data              = file("${path.module}/userdata.sh")
+
+  root_block_device {
+    encrypted             = true
+    kms_key_id            = var.kms_key
+  }
+
   tags                   = merge(local.tags, { Name = "${local.name_prefix}" })
 }
 
